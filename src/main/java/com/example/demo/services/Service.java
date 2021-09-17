@@ -2,8 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Courses;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 
 import java.util.ArrayList;
@@ -17,8 +16,8 @@ public class Service implements CourseService{
 
     public Service() {
         list = new ArrayList<>();
-        list.add(new Courses(1,"Title 101","Description 101"));
-        list.add(new Courses(2,"Title 102","Description 102"));
+      //  list.add(new Courses(1,"Title 101","Description 101"));
+       // list.add(new Courses(2,"Title 102","Description 102"));
     }
 
     @Override
@@ -53,5 +52,22 @@ public class Service implements CourseService{
         Firestore firestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(courses.getTitle()).set(courses);
         return collectionsApiFuture.get().getUpdateTime().toString();
+    }
+
+    public List<String> getuserDetails(Courses courses) throws ExecutionException, InterruptedException {
+       /* list.add(courses);
+        return courses;*/
+        List<String> listt = null;
+        Firestore firestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = firestore.collection("courses").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+            System.out.print(document.getId());
+            assert false;
+            listt.add(document.getId());
+        }
+        System.out.print("adadadadadad");
+        System.out.print("555   "+ listt);
+        return listt;
     }
 }

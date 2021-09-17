@@ -35,9 +35,13 @@ public class MyController {
         return this.courseService.addCourse(courses);
     }
 
-    @PostMapping("/coursesfirebase")
+    @PostMapping("/coursespostfirebase")
     public String addCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
         return this.courseService.saveuserDetails(courses);
     }
 
+    @GetMapping("/coursesgetfirebase")
+    public List<String> getuserDetails(@RequestBody Courses courses) throws ExecutionException, InterruptedException{
+        return this.courseService.getuserDetails(courses);
+    }
 }
