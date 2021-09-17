@@ -47,11 +47,11 @@ public class Service implements CourseService{
         return courses;
     }
 
-    public Courses saveuserDetails(Courses courses) throws ExecutionException, InterruptedException {
-        list.add(courses);
-        return courses;
-        /*Firestore firestore = FirestoreClient.getFirestore();
+    public String saveuserDetails(Courses courses) throws ExecutionException, InterruptedException {
+       /* list.add(courses);
+        return courses;*/
+        Firestore firestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(courses.getTitle()).set(courses);
-        return collectionsApiFuture.get().getUpdateTime().toString();*/
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 }
