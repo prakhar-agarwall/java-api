@@ -39,4 +39,5 @@ public class MyController {
     public String addCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
         return this.courseService.saveuserDetails(courses);
     }
+
 }
