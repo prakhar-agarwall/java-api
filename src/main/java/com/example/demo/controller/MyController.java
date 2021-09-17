@@ -36,7 +36,7 @@ public class MyController {
     }
 
     @PostMapping("/coursesfirebase")
-    public Courses addCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
+    public String addCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
         return this.courseService.saveuserDetails(courses);
     }
 
