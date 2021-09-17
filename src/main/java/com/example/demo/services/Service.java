@@ -17,8 +17,8 @@ public class Service implements CourseService{
 
     public Service() {
         list = new ArrayList<>();
-        list.add(new Courses(1,"Title 1","Description 1"));
-        list.add(new Courses(2,"Title 2","Description 2"));
+        list.add(new Courses(1,"Title 101","Description 101"));
+        list.add(new Courses(2,"Title 102","Description 102"));
     }
 
     @Override
