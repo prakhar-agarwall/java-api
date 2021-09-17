@@ -12,5 +12,5 @@ public interface CourseService{
 
     public Courses addCourse(Courses courses);
 
-    public String saveuserDetails(Courses courses) throws ExecutionException, InterruptedException;
+    public Courses saveuserDetails(Courses courses) throws ExecutionException, InterruptedException;
 }
