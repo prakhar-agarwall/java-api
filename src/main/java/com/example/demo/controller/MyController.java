@@ -40,8 +40,13 @@ public class MyController {
         return this.courseService.saveuserDetails(courses);
     }
 
-    @GetMapping("/coursesgetfirebase")
-    public List<String> getuserDetails(@RequestBody Courses courses) throws ExecutionException, InterruptedException{
-        return this.courseService.getuserDetails(courses);
+    @GetMapping("/coursesgetfirebase/{title}")
+    public Courses getuserDetails(@PathVariable String title) throws ExecutionException, InterruptedException{
+        return this.courseService.getuserDetails(title);
+    }
+
+    @PutMapping("/coursesputfirebase")
+    public String updateCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
+        return this.courseService.saveuserDetails(courses);
     }
 }

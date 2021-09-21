@@ -14,5 +14,5 @@ public interface CourseService{
 
     public String saveuserDetails(Courses courses) throws ExecutionException, InterruptedException;
 
-    public List<String> getuserDetails(Courses courses) throws ExecutionException, InterruptedException;
+    public Courses getuserDetails(String title) throws ExecutionException, InterruptedException;
 }

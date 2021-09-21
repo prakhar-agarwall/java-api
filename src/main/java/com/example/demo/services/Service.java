@@ -30,7 +30,7 @@ public class Service implements CourseService{
 
         Courses c = null;
         for(Courses courses:list){
-            if(courses.getId().equals(courseid)){
+            if(courses.getId() == courseid){
                 c = courses;
                 break;
             }
@@ -54,20 +54,27 @@ public class Service implements CourseService{
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public List<String> getuserDetails(Courses courses) throws ExecutionException, InterruptedException {
+    public Courses getuserDetails(String title) throws ExecutionException, InterruptedException {
+        Firestore firestore = FirestoreClient.getFirestore();
+
+        DocumentReference documentReference = firestore.collection("courses").document(title);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot document = future.get();
+
+        Courses course = null;
+        if(document.exists()){
+            course = document.toObject(Courses.class);
+            return course;
+        }else{
+            return null;
+        }
+    }
+
+    public String updateCourseFirebase(Courses courses) throws ExecutionException, InterruptedException {
        /* list.add(courses);
         return courses;*/
-        List<String> listt = null;
         Firestore firestore = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> future = firestore.collection("courses").get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        for (QueryDocumentSnapshot document : documents) {
-            System.out.print(document.getId());
-            assert false;
-            listt.add(document.getId());
-        }
-        System.out.print("adadadadadad");
-        System.out.print("555   "+ listt);
-        return listt;
+        ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(courses.getTitle()).set(courses);
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 }
