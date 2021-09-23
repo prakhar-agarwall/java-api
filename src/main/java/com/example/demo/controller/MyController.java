@@ -49,4 +49,9 @@ public class MyController {
     public String updateCourseFirebase(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
         return this.courseService.saveuserDetails(courses);
     }
+
+    @DeleteMapping("/coursesdeletefirebase/{title}")
+    public String deleteCourseFirebase(@PathVariable String title) throws ExecutionException, InterruptedException{
+        return this.courseService.deleteCourseFirebase(title);
+    }
 }

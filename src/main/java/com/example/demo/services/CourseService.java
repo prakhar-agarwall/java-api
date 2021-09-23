@@ -15,4 +15,6 @@ public interface CourseService{
     public String saveuserDetails(Courses courses) throws ExecutionException, InterruptedException;
 
     public Courses getuserDetails(String title) throws ExecutionException, InterruptedException;
+
+    public String deleteCourseFirebase(String title) throws ExecutionException, InterruptedException;
 }

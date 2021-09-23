@@ -77,4 +77,12 @@ public class Service implements CourseService{
         ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(courses.getTitle()).set(courses);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
+
+    public String deleteCourseFirebase(String title) throws ExecutionException, InterruptedException {
+       /* list.add(courses);
+        return courses;*/
+        Firestore firestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(title).delete();
+        return "Course with title: " + title + " deleted successfully.";
+    }
 }
