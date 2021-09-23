@@ -54,4 +54,10 @@ public class MyController {
     public String deleteCourseFirebase(@PathVariable String title) throws ExecutionException, InterruptedException{
         return this.courseService.deleteCourseFirebase(title);
     }
+
+    @PostMapping("/coursesrealtime")
+    public String saverealtime(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
+        return this.courseService.saverealtime(courses);
+    }
+
 }

@@ -4,9 +4,13 @@ import com.example.demo.entities.Courses;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @org.springframework.stereotype.Service
@@ -84,5 +88,20 @@ public class Service implements CourseService{
         Firestore firestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(title).delete();
         return "Course with title: " + title + " deleted successfully.";
+    }
+
+    public String saverealtime(Courses courses) throws ExecutionException, InterruptedException {
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        DatabaseReference usersRef = ref.child("users");
+
+        Map<String, Courses> users = new HashMap<>();
+        users.put("alanisawesome", new Courses(1,"June 23, 1912", "Alan Turing"));
+        users.put("gracehop", new Courses(2,"December 9, 1906", "Grace Hopper"));
+
+        usersRef.setValueAsync(users);
+        return "Course added successfully.";
     }
 }
