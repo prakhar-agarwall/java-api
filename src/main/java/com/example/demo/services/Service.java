@@ -135,4 +135,20 @@ public class Service implements CourseService{
         return "Course added successfully.";
 
     }
+
+    public String updaterealtime(Courses courses) throws ExecutionException, InterruptedException{
+
+        /*
+        SAME EXACT CODE OF ADD
+        NO NEED TO ADD NEW ROUTE FOR UPDATE OPERATION
+        CALL #saverealtime FOR UPDATE OPERATION
+         */
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        DatabaseReference dataRef = ref.child("users");
+        dataRef.setValueAsync(courses);
+        return "Course updated successfully.";
+    }
 }
