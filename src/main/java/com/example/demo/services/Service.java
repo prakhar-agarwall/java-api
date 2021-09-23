@@ -81,7 +81,7 @@ public class Service implements CourseService{
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public String deleteCourseFirebase(String title) throws ExecutionException, InterruptedException {
+    public String deleteCourseFirebase(String title){
        /* list.add(courses);
         return courses;*/
         Firestore firestore = FirestoreClient.getFirestore();
@@ -89,7 +89,7 @@ public class Service implements CourseService{
         return "Course with title: " + title + " deleted successfully.";
     }
 
-    public String saverealtime(Courses courses) throws ExecutionException, InterruptedException {
+    public String saverealtime(Courses courses){
 
         // Approach 1
        /* final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -133,10 +133,9 @@ public class Service implements CourseService{
         DatabaseReference dataRef = ref.child("users");
         dataRef.setValueAsync(courses);
         return "Course added successfully.";
-
     }
 
-    public String updaterealtime(Courses courses) throws ExecutionException, InterruptedException{
+    public String updaterealtime(Courses courses) {
 
         /*
         SAME EXACT CODE OF ADD
@@ -150,5 +149,15 @@ public class Service implements CourseService{
         DatabaseReference dataRef = ref.child("users");
         dataRef.setValueAsync(courses);
         return "Course updated successfully.";
+    }
+
+    public String deleterealtime(Courses courses) {
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        DatabaseReference dataRef = ref.child("users");
+        dataRef.removeValueAsync();
+        return "Course added successfully.";
     }
 }

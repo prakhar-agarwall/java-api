@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.entities.Courses;
 import com.example.demo.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class MyController {
     }
 
     @GetMapping("/coursesgetfirebase/{title}")
-    public Courses getuserDetails(@PathVariable String title) throws ExecutionException, InterruptedException{
+    public Courses getuserDetails(@PathVariable String title) throws ExecutionException, InterruptedException {
         return this.courseService.getuserDetails(title);
     }
 
@@ -51,13 +50,18 @@ public class MyController {
     }
 
     @DeleteMapping("/coursesdeletefirebase/{title}")
-    public String deleteCourseFirebase(@PathVariable String title) throws ExecutionException, InterruptedException{
+    public String deleteCourseFirebase(@PathVariable String title) {
         return this.courseService.deleteCourseFirebase(title);
     }
 
     @PostMapping("/coursesrealtime")
-    public String saverealtime(@RequestBody Courses courses) throws ExecutionException, InterruptedException {
+    public String saverealtime(@RequestBody Courses courses) {
         return this.courseService.saverealtime(courses);
+    }
+
+    @DeleteMapping("/coursesdeleterealtime")
+    public String deleteCourseFirebase(@RequestBody Courses courses) {
+        return this.courseService.deleterealtime(courses);
     }
 
 }
