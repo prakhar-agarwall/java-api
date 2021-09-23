@@ -4,6 +4,7 @@ import com.example.demo.entities.Courses;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -51,8 +52,6 @@ public class Service implements CourseService{
     }
 
     public String saveuserDetails(Courses courses) throws ExecutionException, InterruptedException {
-       /* list.add(courses);
-        return courses;*/
         Firestore firestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = firestore.collection("courses").document(courses.getTitle()).set(courses);
         return collectionsApiFuture.get().getUpdateTime().toString();
@@ -92,16 +91,48 @@ public class Service implements CourseService{
 
     public String saverealtime(Courses courses) throws ExecutionException, InterruptedException {
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // Approach 1
+       /* final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
 
-        DatabaseReference usersRef = ref.child("users");
+        DatabaseReference usersRef = ref.child("user");
 
         Map<String, Courses> users = new HashMap<>();
         users.put("alanisawesome", new Courses(1,"June 23, 1912", "Alan Turing"));
         users.put("gracehop", new Courses(2,"December 9, 1906", "Grace Hopper"));
 
         usersRef.setValueAsync(users);
+        return "Course added successfully.";*/
+
+        /*
+
+        // Approach 2
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        DatabaseReference dataRef = ref.child("lol");
+        dataRef.setValue(courses, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    System.out.println("Data could not be saved " + databaseError.getMessage());
+                } else {
+                    System.out.println("Data saved successfully.");
+                }
+            }
+        });
+        dataRef.setValueAsync(courses);
         return "Course added successfully.";
+
+        */
+
+        // Approach 3
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        DatabaseReference dataRef = ref.child("users");
+        dataRef.setValueAsync(courses);
+        return "Course added successfully.";
+
     }
 }
